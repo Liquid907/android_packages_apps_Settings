@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.settings.paranoid.NavBar;
+package com.android.settings.paranoid;
 
 import android.app.Activity;
 import android.app.AlertDialog;
