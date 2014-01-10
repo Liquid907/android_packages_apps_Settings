@@ -42,10 +42,12 @@ public class LockscreenInterface extends SettingsPreferenceFragment {
     private static final String KEY_LOCK_CLOCK = "lock_clock";
     private static final String KEY_ENABLE_CAMERA = "keyguard_enable_camera";
     private static final String KEY_SEE_TRHOUGH = "see_through";
+    private static final String LOCK_BEFORE_UNLOCK = "lock_before_unlock";
 
     private CheckBoxPreference mEnableKeyguardWidgets;
     private CheckBoxPreference mEnableCameraWidget;
     private CheckBoxPreference mSeeThrough;
+    private CheckBoxPreference mLockBeforeUnlock;
 
     private ChooseLockSettingsHelper mChooseLockSettingsHelper;
     private LockPatternUtils mLockUtils;
@@ -71,6 +73,9 @@ public class LockscreenInterface extends SettingsPreferenceFragment {
         // lockscreen see through
         mSeeThrough = (CheckBoxPreference) findPreference(KEY_SEE_TRHOUGH);
 
+	// Lock before Unlock
+        mLockBeforeUnlock = (CheckBoxPreference) findPreference(LOCK_BEFORE_UNLOCK);
+        
         // Remove/disable custom widgets based on device RAM and policy
         if (ActivityManager.isLowRamDeviceStatic()) {
             // Widgets take a lot of RAM, so disable them on low-memory devices
@@ -130,6 +135,9 @@ public class LockscreenInterface extends SettingsPreferenceFragment {
 	} else if (preference == mSeeThrough) {
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SEE_THROUGH,
                     mSeeThrough.isChecked() ? 1 : 0);
+        } else if (preference == mLockBeforeUnlock) {
+            Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCK_BEFORE_UNLOCK,
+                    mLockBeforeUnlock.isChecked() ? 1 : 0);
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
